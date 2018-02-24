@@ -24,7 +24,7 @@ function displaySportsInfo() {
 	          var gifDiv = $("<div class='gif'>");
 
 	          // Storing the rating data
-	          var rating = response.data.rating;
+	          var rating = results[i].rating;
 
 	          // Creating an element to have the rating displayed
 	          var ratingP = $("<p>").text("Rating: " + rating);
@@ -65,7 +65,7 @@ function displaySportsInfo() {
       }
 
       // This function handles events where a movie button is clicked
-      $(".add-sports").on("click", function(event) {
+      $("#add-sports").on("click", function(event) {
         event.preventDefault();
         // This line grabs the input from the textbox
         var sportsInput = $("#sports-input").val().trim();
@@ -75,6 +75,9 @@ function displaySportsInfo() {
 
         // Calling renderButtons which handles the processing of our movie array
         renderButtons();
+
+        //Clearing input box
+        $("#sports-input").val("");
       });
 
       // // Adding a click event listener to all elements with a class of "movie-btn"
