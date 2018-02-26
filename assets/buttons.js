@@ -5,7 +5,7 @@ function displaySportsInfo() {
         var sportsTerm = $(this).attr("data-name");
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + sportsTerm + "&api_key=NwAIVNWh53NmQhvtI8Cj2vAUyuK09THV&limit=10";
 
-        // Creating an AJAX call for the specific movie button being clicked
+        // Creating an AJAX call for when a button is clicked
         $.ajax({
           url: queryURL,
           method: "GET"
@@ -23,7 +23,7 @@ function displaySportsInfo() {
 	          // Creating a div to hold the gifs
 	          var gifDiv = $("<div class='gif'>");
 
-	          // Storing the rating data
+	          // Storing the rating in a variable
 	          var rating = results[i].rating;
 
 	          // Creating an element to have the rating displayed
@@ -40,53 +40,59 @@ function displaySportsInfo() {
 
 	          // Putting the gifs at the top of the div
 	          $("#gif-view").prepend(gifDiv);
-		    }
-	      }
+		        };
+	        };
+
+            alert("Click a GIF to play the GIF!");
+
+
         });
 
-      }
+      };
+
+
+      function playGIF {
+
+      };
       
-      // Function for displaying movie data
+      // Function for displaying the buttons
       function renderButtons() {
 
-        // Deleting the movies prior to adding new movies
-        // (this is necessary otherwise you will have repeat buttons)
+        // Deleting the prior buttons to avoid repeats
         $("#sports-buttons").empty();
 
-        // Looping through the array of movies
         for (var i = 0; i < topics.length; i++) {
 
-          // Then dynamicaly generating buttons for each movie in the array
-          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          // Dynamicaly generating buttons for each sports term in the array
           var a = $("<button>");
-          // Adding a class of movie-btn to our button
+          // Adding a class of sports-btn to our button
           a.addClass("sports-btn");
           // Adding a data-attribute
           a.attr("data-name", topics[i]);
-          // Providing the initial button text
+          // Providing the button text
           a.text(topics[i]);
-          // Adding the button to the buttons-view div
+          // Adding the button to the buttons div
           $("#sports-buttons").append(a);
-        }
-      }
+        };
+      };
 
-      // This function handles events where a movie button is clicked
+      // This function handles events where someone adds a button
       $("#add-sports").on("click", function(event) {
         event.preventDefault();
-        // This line grabs the input from the textbox
+        // Grabbing the input from the textbox
         var sportsInput = $("#sports-input").val().trim();
 
-        // Adding movie from the textbox to our array
+        // Adding the topic from the textbox to our array
         topics.push(sportsInput);
 
-        // Calling renderButtons which handles the processing of our movie array
+        // Calling renderButtons to add the new button
         renderButtons();
 
-        //Clearing input box
+        // Clearing input box
         $("#sports-input").val("");
       });
 
-      // // Adding a click event listener to all elements with a class of "movie-btn"
+      // // Adding a click event listener to all elements with a class of "sports-btn"
       $(document).on("click", ".sports-btn", displaySportsInfo);
 
       // Calling the renderButtons function to display the intial buttons
