@@ -51,7 +51,7 @@ function displaySportsInfo() {
       };
 
 
-      function playGIF {
+      function playGIF() {
 
       };
       
