@@ -32,6 +32,12 @@ function displaySportsInfo() {
 	          // Displaying the rating
 	          gifDiv.append(ratingP);
 
+            // Storing the still gif
+            var sportImage = results[i].images.original_still.url;
+
+            // Displaying the gifs
+            gifDiv.append("<img src=" + sportImage + ">");
+
 	          // Putting the gifs at the top of the div
 	          $("#gif-view").prepend(gifDiv);
 		    }
