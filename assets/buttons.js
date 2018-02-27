@@ -15,10 +15,12 @@ function displaySportsInfo() {
 
           var results = response.data
 
+          // Emptying div for the new gifs to be displaying by themselves
+          $("#gif-view").empty();
+
           for (var i = 0; i < results.length; i++) {
 
           	if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-
 
 	          // Creating a div to hold the gifs
 	          var gifDiv = $("<div>");
@@ -42,8 +44,11 @@ function displaySportsInfo() {
             // Storing the original gif            
             var originalGIF = results[i].images.original.url;
 
-            // Giving the div an attribute for the original gif
-            sportImage.attr("date-animate", originalGIF)
+            // Giving the image an attribute for the original gif
+            sportImage.attr("date-animate", originalGIF);
+
+            // Giving the image an attribute for data-state to be used later
+            sportImage.attr("data-state", "still");
 
             // Displaying the gifs
             gifDiv.append(sportImage);
@@ -71,8 +76,6 @@ function displaySportsInfo() {
           // Adding a data-attribute
           gifButton.attr("data-name", topics[i]);
 
-          gifButton.attr("data-state", "still")
-
           // Providing the button text
           gifButton.text(topics[i]);
           // Adding the button to the buttons div
@@ -99,10 +102,11 @@ function displaySportsInfo() {
       // // Adding a click event listener to all elements with a class of "sports-btn"
       $(document).on("click", ".sports-btn", displaySportsInfo);
       
-      $(document).on("click", ".gif",  function() {
-              var state = $(this).attr("data-state")
+      $(document).on("click", ".gif", function() {
+              var state = $(this).attr("data-state");
+              console.log(state);
 
-              if (state === "still") {
+              if (state == "still") {
                 $(this).attr("src", $(this).attr("data-animate"));
                 $(this).attr("data-state", "animate");
               } else {
