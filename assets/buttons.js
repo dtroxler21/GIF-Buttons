@@ -21,7 +21,7 @@ function displaySportsInfo() {
 
 
 	          // Creating a div to hold the gifs
-	          var gifDiv = $("<div class='gif'>");
+	          var gifDiv = $("<div>");
 
 	          // Storing the rating in a variable
 	          var rating = results[i].rating;
@@ -32,26 +32,27 @@ function displaySportsInfo() {
 	          // Displaying the rating
 	          gifDiv.append(ratingP);
 
-            // Storing the still gif
-            var sportImage = results[i].images.original_still.url;
+            // Creating an image for the gifs
+            var sportImage = $("<img class='gif'>")
+            
+            // Giving image attribute to store still gif
+            sportImage.attr("src", results[i].images.original_still.url);
+            sportImage.attr("data-still", results[i].images.original_still.url);
+
+            // Storing the original gif            
+            var originalGIF = results[i].images.original.url;
+
+            // Giving the div an attribute for the original gif
+            sportImage.attr("date-animate", originalGIF)
 
             // Displaying the gifs
-            gifDiv.append("<img src=" + sportImage + ">");
+            gifDiv.append(sportImage);
 
-	          // Putting the gifs at the top of the div
+            // Putting the gifs at the top of the div
 	          $("#gif-view").prepend(gifDiv);
 		        };
 	        };
-
-            alert("Click a GIF to play the GIF!");
-
-
         });
-
-      };
-
-
-      function playGIF() {
 
       };
       
@@ -64,15 +65,18 @@ function displaySportsInfo() {
         for (var i = 0; i < topics.length; i++) {
 
           // Dynamicaly generating buttons for each sports term in the array
-          var a = $("<button>");
+          var gifButton = $("<button>");
           // Adding a class of sports-btn to our button
-          a.addClass("sports-btn");
+          gifButton.addClass("sports-btn");
           // Adding a data-attribute
-          a.attr("data-name", topics[i]);
+          gifButton.attr("data-name", topics[i]);
+
+          gifButton.attr("data-state", "still")
+
           // Providing the button text
-          a.text(topics[i]);
+          gifButton.text(topics[i]);
           // Adding the button to the buttons div
-          $("#sports-buttons").append(a);
+          $("#sports-buttons").append(gifButton);
         };
       };
 
@@ -94,6 +98,18 @@ function displaySportsInfo() {
 
       // // Adding a click event listener to all elements with a class of "sports-btn"
       $(document).on("click", ".sports-btn", displaySportsInfo);
+      
+      $(document).on("click", ".gif",  function() {
+              var state = $(this).attr("data-state")
+
+              if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+              } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+              }
+            });
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
