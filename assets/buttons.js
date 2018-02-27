@@ -46,8 +46,8 @@ function displaySportsInfo() {
             console.log(originalGIF);
 
             // Giving the image an attribute for the original gif
-            sportImage.attr("date-animate", originalGIF);
-            console.log(sportImage.attr("date-animate"));
+            sportImage.attr("data-animate", originalGIF);
+            // console.log(sportImage.attr("date-animate"));
 
             // Giving the image an attribute for data-state to be used later
             sportImage.attr("data-state", "still");
@@ -114,6 +114,7 @@ function displaySportsInfo() {
                 $(this).attr("data-state", "animate");
               } else {
                 $(this).attr("src", $(this).attr("data-still"));
+                console.log($(this).attr("src"));
                 $(this).attr("data-state", "still");
               }
             });
