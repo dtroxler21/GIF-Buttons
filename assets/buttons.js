@@ -43,9 +43,11 @@ function displaySportsInfo() {
 
             // Storing the original gif            
             var originalGIF = results[i].images.original.url;
+            console.log(originalGIF);
 
             // Giving the image an attribute for the original gif
             sportImage.attr("date-animate", originalGIF);
+            console.log(sportImage.attr("date-animate"));
 
             // Giving the image an attribute for data-state to be used later
             sportImage.attr("data-state", "still");
@@ -99,15 +101,16 @@ function displaySportsInfo() {
         $("#sports-input").val("");
       });
 
-      // // Adding a click event listener to all elements with a class of "sports-btn"
+      // Adding a click event listener to all elements with a class of "sports-btn"
       $(document).on("click", ".sports-btn", displaySportsInfo);
       
       $(document).on("click", ".gif", function() {
               var state = $(this).attr("data-state");
               console.log(state);
 
-              if (state == "still") {
+              if (state === "still") {
                 $(this).attr("src", $(this).attr("data-animate"));
+                console.log($(this).attr("src"));
                 $(this).attr("data-state", "animate");
               } else {
                 $(this).attr("src", $(this).attr("data-still"));
